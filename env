@@ -1,0 +1,5 @@
+POSTGRES_USER=pguser
+POSTGRES_PASSWORD=pgpassword
+POSTGRES_DB=hellodb
+TZ=Europe/Copenhagen
+PGTZ=Europe/Copenhagen

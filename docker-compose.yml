@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:15.2-alpine
+    volumes:
+      - data:/var/lib/postgresql/data/
+      - ./dbscripts/:/dbscripts/
+    networks:
+      - dbnet
+    env_file:
+      - env
+
+  app:
+    image: hello:latest
+    networks:
+      - dbnet
+      - webnet
+    env_file:
+      - env
+    depends_on:
+      - db
+
+  web:
+    image: nginx:latest
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d/
+    networks:
+      - webnet
+    ports:
+      - 8000:8000
+    depends_on:
+      - app
+
+volumes:
+  data:
+
+networks:
+  dbnet:
+  webnet:
